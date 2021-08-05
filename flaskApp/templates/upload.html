@@ -3,7 +3,7 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container" id="myrow">
     <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" id="uploadimg" href="#upload-image">Upload Image</a>
@@ -16,21 +16,19 @@
             <div class="row">
               <div class="col">
                   <form action="#" method="POST" enctype="multipart/form-data">
-                    <!-- file input -->
+                    <!-- file input --> <p></p>
                     <p>
-                      <input type="file" name="image_name" class="btn" required>
+                      <input type="file" name="image_name" class="btn" style="background-color:#11618E; color:cornsilk;" required>
                     </p>
-                    <!-- submit button -->
+                    <!-- submit button --> <p></p>
                     <p>
-                      <input type="submit" value="submit" class="btn">
+                      <input type="submit" value="submit" class="btn" style="background-color: #11618E; color:cornsilk ">
                     </p>
 
-                    <p>Intructions: <br>
-                        only upload the file with extention "png", "jpg",  "jpeg"
+                    <p align="center"><strong>Intructions:</strong>  <br>
+                        Only upload the file with extention "png",  "jpg",  "jpeg" <br>
                         Other extention will not work 
                     </p>
-                  
-                  
                   
                   </form>
               </div>
@@ -39,8 +37,47 @@
     </div>
 
 
+  {% if fileupload  %}
+    <div class="container"> 
+      <div class="row">
+        <div class="col col-8">
+
+            <table>
+              <tr>
+                <th>Label</th>
+                <th>Confidence Score</th>
+              </tr>
+
+
+              {% for name, score in data.items() %}
+
+                  <tr>
+                    <th>{{name }}</th>
+                    <th>{{score}}</th>
+                  </tr>
+
+              {% endfor %}
+            </table>
+        </div>
+        <div class="container col col-4" >
+          <img src="static/upload/{{image}}" alt="uploaded image "  width="200px" height="200px">
+      </div>
+
+      </div>
+      
+    </div>
+  {% endif   %}
+
 </div>
-    
+
+
+
+<style>
+  #myrow{
+    background-color: #e7f5f3;
+
+  }
+</style>
 
 
 {% endblock body %}
