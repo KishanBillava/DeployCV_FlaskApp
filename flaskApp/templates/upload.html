@@ -3,15 +3,15 @@
 
 {% block body %}
 
-<div class="container" id="myrow">
+<div class="container" >
     <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" id="uploadimg" href="#upload-image">Upload Image</a>
+          <a class="nav-link active btn " id="uploadimg" href="#upload-image"><strong>Upload Image</strong> </a>
         </li>
     </ul>
 
     <!-- tab panes-->
-    <div class="tab-content">
+    <div class="tab-content" id="myrow" >
         <div class="tab-pane active " id="upload-image" role="tabpanel" aria-labelledby="uploadimg"> 
             <div class="row">
               <div class="col">
@@ -36,9 +36,10 @@
         </div>
     </div>
 
+<br>
 
   {% if fileupload  %}
-    <div class="container"> 
+    <div class="container" id="myrowresult"> 
       <div class="row">
         <div class="col col-8">
 
@@ -60,7 +61,7 @@
             </table>
         </div>
         <div class="container col col-4" >
-          <img src="static/upload/{{image}}" alt="uploaded image "  width="200px" height="200px">
+          <img src="static/upload/{{image}}" alt="uploaded image "  width="300" height="{{height}}">
       </div>
 
       </div>
@@ -70,6 +71,17 @@
 
 </div>
 
+{% if extention %}
+
+  <div class="container" id=myrowresult> 
+    <div class="row">
+      <p>Invalid Extenation of the iamge</p>
+      <p>upload the file with extention "png",  "jpg",  "jpeg"</p>
+
+    </div>
+  </div>
+
+{% endif %}
 
 
 <style>
@@ -77,6 +89,20 @@
     background-color: #e7f5f3;
 
   }
+  #myrowresult{
+
+    background-color: #e7f5f3;
+    padding: 5%;
+    align-content: center;
+  }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table,th, td{
+    border: 1px solid black;
+  }
+
 </style>
 
 

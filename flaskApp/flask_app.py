@@ -1,3 +1,4 @@
+from logging import error
 from flask import Flask, render_template
 from flask import request 
 import os
@@ -34,7 +35,17 @@ scalar_path = os.path.join(MODEL_PATH,'dsa_scalar.pickle')
 model_sgd = pickle.load(open(model_sgd_path,'rb'))
 scalar_sgd = pickle.load(open(scalar_path, 'rb'))
 
+@app.errorhandler(404)
+def error404():
+    render_template("error.html")
 
+@app.errorhandler(405)
+def error405():
+    render_template("error.html")
+
+@app.errorhandler(500)
+def error500():
+    render_template("error.html")
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -54,20 +65,31 @@ def index():
             upload_file.save(path_save)
             # send to pipeline model
             results = pipeline_model(path_save,scalar_sgd,model_sgd)
+
+            hei = getheight(path_save)
+
             print(results)
             print(filename)
-            return render_template('upload.html', fileupload=True, data= results, image=filename)
+            return render_template('upload.html', fileupload=True,extention=False, data= results, image=filename, height=hei)
 
 
         else:
             print('Use only the Extenstion with .png .jpg .jpeg ')
-            return render_template('upload.html', )
+            return render_template('upload.html', extention=True, fileupload=False)
 
 
 
     else:
         return render_template('upload.html', fileupload=False)
 
+
+def getheight(path):
+    img = skimage.io.imread(path)
+    h,w,_ = img.shape
+    ascept = h/w 
+    given_width = 300
+    height = given_width*ascept
+    return height
 
 
 
