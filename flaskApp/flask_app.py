@@ -35,18 +35,31 @@ scalar_path = os.path.join(MODEL_PATH,'dsa_scalar.pickle')
 model_sgd = pickle.load(open(model_sgd_path,'rb'))
 scalar_sgd = pickle.load(open(scalar_path, 'rb'))
 
+#----------------------Load Model ---------------------------#
+
+
+#----------------------error handler ---------------------------#
+
 @app.errorhandler(404)
-def error404():
-    render_template("error.html")
+def error404(error):
+    message = "Error 404 Occured. Page Not Found. Go to home page "
+    return render_template("error.html", message = message)
 
 @app.errorhandler(405)
-def error405():
-    render_template("error.html")
+def error405(error):
+    message = "Error 405 Occured. Method Not Found "
+    return render_template("error.html", message = message)
 
 @app.errorhandler(500)
-def error500():
-    render_template("error.html")
+def error500(error):
+    message = "Error 500 Occured. Internal Error"
+    return render_template("error.html", message = message)
 
+#----------------------error handler ---------------------------#
+
+
+
+#----------------------route ---------------------------#
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -83,6 +96,14 @@ def index():
         return render_template('upload.html', fileupload=False)
 
 
+@app.route('/about/')
+def about():
+    return render_template('about.html')
+#----------------------route ---------------------------#
+
+
+
+
 def getheight(path):
     img = skimage.io.imread(path)
     h,w,_ = img.shape
@@ -92,6 +113,8 @@ def getheight(path):
     return height
 
 
+
+#----------------------Code for ML Model ------------------------#
 
 def pipeline_model(path,scalar_transform,model_sgd):
     # pipeline model
@@ -130,6 +153,10 @@ def pipeline_model(path,scalar_transform,model_sgd):
 
     
     return top_dict
+
+
+#----------------------Code for ML Model ------------------------#
+
 
 
 if __name__ == "__main__":
