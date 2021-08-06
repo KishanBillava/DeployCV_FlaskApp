@@ -6,7 +6,7 @@ import pickle
 
 #--------------- ML Libary ----------------# 
 import numpy as np
-import pandas as pd 
+#import pandas as pd 
 import scipy 
 import sklearn
 from sklearn.pipeline import make_pipeline
@@ -160,4 +160,4 @@ def pipeline_model(path,scalar_transform,model_sgd):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
