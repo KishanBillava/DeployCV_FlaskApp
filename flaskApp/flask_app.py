@@ -67,11 +67,11 @@ def index():
         
         upload_file  = request.files['image_name']
         filename = upload_file.filename
-        print('file name uploaded is  ',filename)
+        # print('file name uploaded is  ',filename)
         # know the extenstion of the filename .jpg  .png  .jpeg
         # 
         ext = filename.split('.')[-1]
-        print('The extension of the filename = ', ext)
+        # print('The extension of the filename = ', ext)
         if ext.lower() in ['png', 'jpg', 'jpeg']:
             # save the image 
             path_save  = os.path.join(UPLOAD_PATH,filename)
@@ -81,13 +81,13 @@ def index():
 
             hei = getheight(path_save)
 
-            print(results)
-            print(filename)
+            # print(results)
+            # print(filename)
             return render_template('upload.html', fileupload=True,extention=False, data= results, image=filename, height=hei)
 
 
         else:
-            print('Use only the Extenstion with .png .jpg .jpeg ')
+            # print('Use only the Extenstion with .png .jpg .jpeg ')
             return render_template('upload.html', extention=True, fileupload=False)
 
 
